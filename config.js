@@ -1,8 +1,8 @@
 // Public values only. Never put API keys here.
 window.CONFIG = {
-  clientId: "YOUR-ENTRA-APP-CLIENT-ID",
+  clientId: "2b9e28a2-afee-4a27-8411-7bf37afe7414",
   tenant: "common", // Use "common" for work+personal, "consumers" for personal-only, or your tenant ID for one org
-  workerUrl: "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev"
+  workerUrl: "https://mandepalli92.github.io/Platform/"
 };
 
 // Example:
