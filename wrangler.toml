@@ -2,5 +2,5 @@ name = "m365-assistant"
 main = "worker.js"
 compatibility_date = "2025-01-01"
 [vars]
-ALLOWED_USER = "you@example.com"
+ALLOWED_USER = "" # Leave blank to allow the signed-in Microsoft account. Set it to one email to lock the app to a single user.
 ORIGIN = "https://YOUR-GITHUB-USER.github.io"

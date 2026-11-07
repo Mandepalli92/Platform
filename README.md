@@ -1,12 +1,12 @@
 # My Microsoft 365 Assistant
-Sign in with Microsoft, ask a question, get an answer drawn only from your own mail, files and calendar, with links.
+Sign in with Microsoft, ask a question, and get answers from your own mail, files and calendar with citations.
 
 ## Setup
-1. **Entra app**: portal.azure.com > Entra ID > App registrations > New. Platform: *Single-page application*, redirect URI `https://<user>.github.io/<repo>/`. API permissions (delegated): User.Read, Mail.Read, Files.Read.All, Calendars.Read. Copy the Application (client) ID into `config.js`.
-2. **Worker**: edit `worker/wrangler.toml` (ALLOWED_USER = your sign-in email, ORIGIN = `https://<user>.github.io`). Then `cd worker && npx wrangler deploy && npx wrangler secret put ANTHROPIC_API_KEY`. Put the worker URL in `config.js`.
-3. **Pages**: push to GitHub (`main`), then Settings > Pages > Source: GitHub Actions.
+1. **Entra app**: in Azure Portal > Entra ID > App registrations > New. Use platform: Single-page application. Add the redirect URI for your GitHub Pages site, for example `https://<your-user>.github.io/<repo>/`. Grant delegated permissions: User.Read, Mail.Read, Files.Read.All, Calendars.Read. Copy the Application (client) ID into `config.js`.
+2. **Worker**: edit `wrangler.toml` and set `ORIGIN` to your Pages URL. Leave `ALLOWED_USER` blank to allow the signed-in Microsoft account, or set it to one email to lock the app to a single account. Deploy with `npx wrangler deploy` and store the LLM key with `npx wrangler secret put ANTHROPIC_API_KEY`. Put the resulting worker URL in `config.js`.
+3. **Pages**: push to GitHub and publish the site in GitHub Pages or use the included workflow.
 
-## Caveats
-- Work tenants often block third-party apps or require admin consent. Mail and file content is sent to the LLM provider: check your employer's policy first.
-- Untested against a live tenant. Graph search behaviour can differ between work and personal accounts.
-- The worker has no rate limit. Add one before sharing the URL.
+## Notes
+- If the app is in a work tenant, admin consent may be required. Mail and file content is sent to the model provider, so confirm your company policy before using it.
+- The app reads from the signed-in user’s Microsoft 365 data, not a shared account, when `ALLOWED_USER` is left empty.
+- The worker has no rate limit. Add one before exposing it publicly.
